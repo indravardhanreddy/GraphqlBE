@@ -1,0 +1,132 @@
+query getAllData{
+  users{
+    _id
+    firstName
+    lastName
+  	password
+    email
+    posts
+    {
+      post
+      userId
+      comments{
+        comment
+        userId
+      }
+    }
+  }
+}
+
+
+--------------------------------------
+
+query getAllUsers{
+  users{
+    _id
+    firstName
+    lastName
+  	password
+    email
+  }
+}
+
+-------------------------------------
+
+query getAllPostsData{
+  posts{
+    post
+    userId
+    comments{
+      comment
+      userId
+    }
+  }
+}
+
+-----------------------------------------
+
+query getUserById($_id: ID){
+  user (_id : $_id){
+    _id
+    email
+  }
+}
+
+
+query getAllUsers($userId: ID){
+  user(_id: $userId){
+    lastName
+    firstName
+    _id
+    email
+  }
+}
+
+-----------------------------------------
+
+query getPostsByUserId($userId: ID){
+  individualPost (userId : $userId){
+    userId
+    post
+  }
+}
+
+-------------------------------------------
+
+mutation signupUser($signup : UserInput!) {
+  signupUser(signup: $signup){
+    email
+    firstName
+    lastName
+  }
+}
+
+{
+  "signup": {
+    "email": "moramindravardhanreddy@gmail.com",
+    "lastName": "Reddy",
+    "firstName": "Indravardhan",
+    "password": "Indrav@6819"
+  }
+}
+
+-----------------------------------------------
+
+mutation signinUser($signin: UserSigninInput!) {
+  user:signinUser(signin: $signin){
+    token
+  }
+}
+
+{
+  "signin":{
+    "email":"navin@gmail.com",
+    "password":"navi123"
+  }
+}
+
+---------------------------------------------------
+
+
+mutation createPost {
+  createPost(userId: "64edb2f8b1147e959778be4f", post: "New Post posted") 
+}
+
+
+----------------------------------------------------
+
+
+
+mutation createComment($commentData : CommentInput!) {
+  createComment(commentData: $commentData) {
+    userId
+  }
+}
+
+{
+  "commentData":{
+    "comment" : "My comment",
+    "userId": "64ee26cfb0fb86ed1197babe",
+    "postId": "64ee1205027883fe354679fb"
+  }
+}
